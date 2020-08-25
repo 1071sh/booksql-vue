@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <router-link to="/books/add">Add a book</router-link>
     <ApolloQuery :query="categoriesQuery">
       <template slot-scope="{ result: { data, loading }, isLoading }">
         <div v-if="isLoading">Loading...</div>
@@ -31,14 +32,12 @@
         <template slot-scope="{ result: { data, loading }, isLoading }">
           <div v-if="isLoading">Loading...</div>
           <div v-else>
-            <div>
-              <div v-for="book of data.books" :key="book.id">
-                <router-link :to="`/books/${book.id}`"
-                  >{{ book.id }}. {{ book.title }}
-                </router-link>
-                <div>{{ book.author }}</div>
-                <img :src="`${book.image}`" alt="cover image" />
-              </div>
+            <div v-for="book of data.books" :key="book.id">
+              <router-link :to="`/books/${book.id}`">
+                {{ book.id }}. {{ book.title }}
+              </router-link>
+              <div>{{ book.author }}</div>
+              <img :src="`${book.image}`" alt="cover image" />
             </div>
           </div>
         </template>
@@ -50,9 +49,9 @@
         <template slot-scope="{ result: { data, loading }, isLoading }">
           <div v-if="isLoading">Loading...</div>
           <div v-else>
-            <div v-for="book of data.booksFeatured" :key="book.id">
-              <router-link :to="`/books/${book.id}`"
-                >{{ book.id }}. {{ book.title }}
+            <div v-for="book of data.booksByFeatured" :key="book.id">
+              <router-link :to="`/books/${book.id}`">
+                {{ book.id }}. {{ book.title }}
               </router-link>
               <div>{{ book.author }}</div>
               <img :src="`${book.image}`" alt="cover image" />
@@ -68,8 +67,8 @@
           <div v-if="isLoading">Loading...</div>
           <div v-else>
             <div v-for="book of data.category.books" :key="book.id">
-              <router-link :to="`/books/${book.id}`"
-                >{{ book.id }}. {{ book.title }}
+              <router-link :to="`/books/${book.id}`">
+                {{ book.id }}. {{ book.title }}
               </router-link>
               <div>{{ book.author }}</div>
               <img :src="`${book.image}`" alt="cover image" />
@@ -118,7 +117,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .link-margin {
   margin-right: 24px;
 }
